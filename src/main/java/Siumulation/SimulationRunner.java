@@ -2,6 +2,7 @@ package Siumulation;
 
 import Model.*;
 import Util.Command;
+import Util.CommandLineWriter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,8 +26,15 @@ public class SimulationRunner implements Runnable{
 
     private int stepCounter = 0;
 
-    public SimulationRunner(List<Command> commands) {
+    private final List<List<Integer>> stepStatuses = new LinkedList<>();
+
+    private CommandLineWriter writer = new CommandLineWriter();
+
+    private final boolean ifDraw;
+
+    public SimulationRunner(List<Command> commands, boolean ifDraw) {
         this.commands = commands;
+        this.ifDraw = ifDraw;
     }
 
 
@@ -35,13 +43,15 @@ public class SimulationRunner implements Runnable{
             if(command.type == Command.CommandType.addVehicle){
                 addCar(new Car(command.vehicleId, command.startRoad, command.endRoad), command.startRoad);
             } else {
-                System.out.println("Current step: " + stepCounter++);
                 List<Integer> carsLeft = step();
-                System.out.println("Cars that left this step: " + carsLeft);
+                stepStatuses.add(carsLeft);
             }
         }
     }
 
+    public List<List<Integer>> getStepStatuses(){
+        return stepStatuses;
+    }
 
     /**
      * Method that performs one step of the simulation. It completes given
@@ -50,7 +60,14 @@ public class SimulationRunner implements Runnable{
      */
     public List<Integer> step(){
         LightsConfiguration currentConfiguration = controller.step();
-        System.out.println("Current configuration: " + currentConfiguration);
+        if(ifDraw){
+            writer.draw(stepCounter++, currentConfiguration,
+                    northernRoad.getRightLaneLength(), northernRoad.getLeftLaneLength(),
+                    southernRoad.getRightLaneLength(), southernRoad.getLeftLaneLength(),
+                    westernRoad.getRightLaneLength(), westernRoad.getLeftLaneLength(),
+                    easternRoad.getRightLaneLength(), easternRoad.getLeftLaneLength());
+        }
+
         CarQueue road1 = directionToRoad(currentConfiguration.getWhereGreen());
 
         if(currentConfiguration.getMode() == LightsConfiguration.LightsMode.twoRightLanes){

@@ -1,5 +1,6 @@
 import Siumulation.SimulationRunner;
 import Util.Command;
+import Util.SimulationOutputSaver;
 
 import java.util.List;
 
@@ -9,13 +10,15 @@ public class Main {
     public static void main(String[] args) {
         List<Command> commandList = loadInstructions(" ");
 
-        for (Command command : commandList) {
-            System.out.println(command);
-        }
-
-        SimulationRunner simulationRunner = new SimulationRunner(commandList);
+        SimulationRunner simulationRunner = new SimulationRunner(commandList, true);
 
         simulationRunner.run();
+
+        List<List<Integer>> output = simulationRunner.getStepStatuses();
+
+        SimulationOutputSaver saver = new SimulationOutputSaver("output.json");
+
+        saver.saveSimulationOutput(output);
 
 
     }

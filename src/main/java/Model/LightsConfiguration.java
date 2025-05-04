@@ -51,4 +51,9 @@ public class LightsConfiguration {
     public int hashCode() {
         return Objects.hash(mode, whereGreen);
     }
+
+    @Override
+    public String toString() {
+        return "Mode: " + mode + ", WhereGreen: " + whereGreen;
+    }
 }
