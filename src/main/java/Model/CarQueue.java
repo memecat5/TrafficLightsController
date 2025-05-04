@@ -17,7 +17,7 @@ public class CarQueue {
     // Direction from which the road is coming
     private final WorldDirection direction;
 
-    CarQueue(WorldDirection direction) {
+    public CarQueue(WorldDirection direction) {
         this.direction = direction;
     }
 
@@ -30,17 +30,19 @@ public class CarQueue {
     }
 
     /**
-     * Adds car to the queue, checks it's heading
-     * to put it on the correct lane.
+     * Adds car to the right lane queue.
      * @param car car to be added
      */
-    public void addCar(Car car) {
-        // Check if car is going left
-        if(car.getTurn() == TurnDirection.LEFT) {
-            leftLane.add(car);
-        } else {
-            rightLane.add(car);
-        }
+    public void addRightLane(Car car) {
+        rightLane.add(car);
+    }
+
+    /**
+     * Adds car to the left lane queue.
+     * @param car car to be added
+     */
+    public void addLeftLane(Car car) {
+        leftLane.add(car);
     }
 
     /**
