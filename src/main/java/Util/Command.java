@@ -7,6 +7,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  * Class representing input commands
  */
 public class Command {
+    public enum CommandType {
+        addVehicle, step
+    }
+
     public CommandType type;
 
     // vehicleId is stored only as int,
