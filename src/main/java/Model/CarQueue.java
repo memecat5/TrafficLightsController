@@ -29,6 +29,10 @@ public class CarQueue {
         return rightLane.size();
     }
 
+    public WorldDirection getDirection() {
+        return direction;
+    }
+
     /**
      * Adds car to the right lane queue.
      * @param car car to be added
