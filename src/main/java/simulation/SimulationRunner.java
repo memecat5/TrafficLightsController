@@ -37,7 +37,9 @@ public class SimulationRunner implements Runnable{
         this.ifDraw = ifDraw;
     }
 
-
+    /** Run simulation. Performs every command passed
+     * on a list to the constructor and saves output.
+     */
     public void run(){
         for(Command command : commands){
             if(command.type == Command.CommandType.addVehicle){
@@ -49,6 +51,10 @@ public class SimulationRunner implements Runnable{
         }
     }
 
+    /**
+     * Return simulation's output.
+     * @return List of lists of cars that left on every step.
+     */
     public List<List<Integer>> getStepStatuses(){
         return stepStatuses;
     }
@@ -144,8 +150,8 @@ public class SimulationRunner implements Runnable{
      * for 2 opposite directions.
      * @param road1 Road with green light
      * @param road2 Road opposite to road1 (also with green light)
-     * @param greenArrowRoad3
-     * @param greenArrowRoad4
+     * @param greenArrowRoad3 road with green arrow
+     * @param greenArrowRoad4 other road with green arrow
      * @return List of IDs of cars that leave the intersection
      */
     private List<Integer> oppositeLeftLanes(CarQueue road1, CarQueue road2,

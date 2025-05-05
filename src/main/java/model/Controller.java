@@ -23,7 +23,7 @@ public class Controller {
     // How many steps is one cycle of light modes
     // Not exactly as they can be increased with
     // minimum step logic or due to rounding
-    private final int STEPS_PER_CYCLE = 4;
+    private final int STEPS_PER_CYCLE = 8;
 
     // Adding minimum steps is a real life modification - configurations which last only
     // for one car to pass would be inefficient
@@ -185,23 +185,23 @@ public class Controller {
             }
         } else {
             durationInSteps.put(cycle.get(0),
-                     Math.max((int) Math.round((lengthNorthRight + lengthSouthRight) / (double)allCars)
-                             * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                     Math.max((int) Math.round((lengthNorthRight + lengthSouthRight) / (double)allCars
+                             * STEPS_PER_CYCLE), MINIMUM_STEPS)
             );
 
             durationInSteps.put(cycle.get(1),
-                    Math.max((int)Math.round((lengthWestRight + lengthEastRight) / (double)allCars)
-                            * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                    Math.max((int)Math.round((lengthWestRight + lengthEastRight) / (double)allCars
+                            * STEPS_PER_CYCLE), MINIMUM_STEPS)
             );
 
             durationInSteps.put(cycle.get(2),
-                    Math.max((int)Math.round((lengthNorthLeft + lengthSouthLeft) / (double)allCars)
-                            * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                    Math.max((int)Math.round((lengthNorthLeft + lengthSouthLeft) / (double)allCars
+                            * STEPS_PER_CYCLE), MINIMUM_STEPS)
             );
 
             durationInSteps.put(cycle.get(3),
-                    Math.max((int)Math.round((lengthWestLeft + lengthEastLeft) / (double)allCars)
-                            * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                    Math.max((int)Math.round((lengthWestLeft + lengthEastLeft) / (double)allCars
+                            * STEPS_PER_CYCLE), MINIMUM_STEPS)
             );
         }
     }
