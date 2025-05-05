@@ -1,6 +1,6 @@
-package Util;
+package util;
 
-import Model.LightsConfiguration;
+import model.LightsConfiguration;
 
 public class CommandLineWriter {
     private final String template =

@@ -1,9 +1,7 @@
-package Model;
+package model;
 
 public class Car {
     private final int id;
-
-    private int waitingTime = 0;
 
     private final TurnDirection turn;
 
@@ -24,15 +22,7 @@ public class Car {
         return id;
     }
 
-    public int getWaitingTime() {
-        return waitingTime;
-    }
-
     public TurnDirection getTurn() {
         return turn;
-    }
-
-    public void increaseWaitingTime() {
-        waitingTime++;
     }
 }

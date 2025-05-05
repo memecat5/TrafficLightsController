@@ -1,6 +1,6 @@
-package Util;
+package util;
 
-import Model.WorldDirection;
+import model.WorldDirection;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**

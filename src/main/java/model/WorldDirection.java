@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public enum WorldDirection {
     NORTH, EAST, SOUTH, WEST;

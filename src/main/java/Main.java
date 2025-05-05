@@ -1,10 +1,10 @@
-import Siumulation.SimulationRunner;
-import Util.Command;
-import Util.SimulationOutputSaver;
+import simulation.SimulationRunner;
+import util.Command;
+import util.SimulationOutputSaver;
 
 import java.util.List;
 
-import static Util.SimulationInstructionsLoader.loadInstructions;
+import static util.SimulationInstructionsLoader.loadInstructions;
 
 public class Main {
     public static void main(String[] args) {

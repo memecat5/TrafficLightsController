@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +21,8 @@ public class Controller {
     private int lengthEastLeft = 0;
 
     // How many steps is one cycle of light modes
+    // Not exactly as they can be increased with
+    // minimum step logic or due to rounding
     private final int STEPS_PER_CYCLE = 4;
 
     // Adding minimum steps is a real life modification - configurations which last only
@@ -81,7 +83,13 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Reaction to one step in simulation.
+     * Register passed time and optionally switch
+     * current lights configuration or recalculate
+     * tim proportions between cycles.
+     * @return lights configuration
+     */
     public LightsConfiguration step(){
         // Configuration finished, switch to a new one
         if(currentStep == currentConfigurationSteps && currentStep != 0){
@@ -111,7 +119,7 @@ public class Controller {
     }
 
     // I'm not proud of this monstrosity, but it would require to rethink
-    // all contorller's data and there is no time for such refactoring
+    // all controller's data and there is no time for such refactoring
     /**
      * Checks if one of the lanes which currently has green light is empty and
      * if lights will benefit from third mode.
@@ -164,35 +172,48 @@ public class Controller {
     }
 
 
-
+    /**
+     * Adjust time proportions between lights configuration
+     * in the cycle according to queue lengths on every road.
+     */
     private void recalculateProportionsInSteps(){
         int allCars = sumQueueLengths();
 
         if(allCars == 0){
             for(LightsConfiguration lightsConfiguration : cycle){
-                durationInSteps.put(lightsConfiguration, STEPS_PER_CYCLE / cycle.size() + MINIMUM_STEPS);
+                durationInSteps.put(lightsConfiguration, STEPS_PER_CYCLE / cycle.size());
             }
         } else {
-            // how to make them sum to STEPS_PER_CYCLE?
             durationInSteps.put(cycle.get(0),
-                    Math.max((lengthNorthRight + lengthSouthRight) / allCars * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                     Math.max((int) Math.round((lengthNorthRight + lengthSouthRight) / (double)allCars)
+                             * STEPS_PER_CYCLE, MINIMUM_STEPS)
             );
 
             durationInSteps.put(cycle.get(1),
-                    Math.max((lengthWestRight + lengthEastRight) / allCars * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                    Math.max((int)Math.round((lengthWestRight + lengthEastRight) / (double)allCars)
+                            * STEPS_PER_CYCLE, MINIMUM_STEPS)
             );
 
             durationInSteps.put(cycle.get(2),
-                    Math.max((lengthNorthLeft + lengthSouthLeft) / allCars * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                    Math.max((int)Math.round((lengthNorthLeft + lengthSouthLeft) / (double)allCars)
+                            * STEPS_PER_CYCLE, MINIMUM_STEPS)
             );
 
             durationInSteps.put(cycle.get(3),
-                    Math.max((lengthWestLeft + lengthEastLeft) / allCars * STEPS_PER_CYCLE, MINIMUM_STEPS)
+                    Math.max((int)Math.round((lengthWestLeft + lengthEastLeft) / (double)allCars)
+                            * STEPS_PER_CYCLE, MINIMUM_STEPS)
             );
         }
     }
 
-
+    /**
+     * Move to next lights configuration from the cycle.
+     * Note: currentConfiguration may not always correspond to
+     * currentConfigurationIndex if lights went into third mode, but
+     * they still will be switched to the correct configuration from the
+     * cycle because currentConfigurationIndex stays on the
+     * original configuration from the cycle, even in the third mode.
+     */
     private void switchConfiguration(){
         currentConfigurationIndex = (currentConfigurationIndex + 1) % cycle.size();
         currentConfiguration = cycle.get(currentConfigurationIndex);

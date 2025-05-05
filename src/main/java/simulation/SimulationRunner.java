@@ -1,8 +1,8 @@
-package Siumulation;
+package simulation;
 
-import Model.*;
-import Util.Command;
-import Util.CommandLineWriter;
+import model.*;
+import util.Command;
+import util.CommandLineWriter;
 
 import java.util.LinkedList;
 import java.util.List;
