@@ -12,11 +12,12 @@ public class Main {
         if (args.length != 2) {
             throw new IllegalArgumentException("Wrong number of arguments");
         }
-
         // Read arguments from input file
         List<Command> commandList = loadInstructions(args[0]);
 
         // Initialize simulation runner
+        // I've added drawing intersection to the console but there is some problem with encoding
+        // on my machine though it should be working
         SimulationRunner simulationRunner = new SimulationRunner(commandList, false);
 
         // Run simulation (it implements Runnable interface so that it's easy

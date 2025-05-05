@@ -5,19 +5,19 @@ import model.LightsConfiguration;
 public class CommandLineWriter {
     private final String template =
             """
-                             a b              \s
-                            ┌┴─┴─┼───┐        \s
-                            │↓| ↓│ ↑ │        \s
-                     ┌──────┘ |  │   └─────── \s
-                     │←                     ←g\s
-                     │───────         ------- \s
-                    e│→                     ←h\s
-                     │-------         ─────── \s
-                    f│→                     → \s
-                     └─────┐   │  | ┌──────── \s
-                           │ ↓ │ ↑|↑│         \s
-                           └───┼─┬─┬┘         \s
-                                 c d          \s""";
+                             a b              
+                            ┌┴─┴─┼───┐        
+                            │↓| ↓│ ↑ │        
+                     ┌──────┘ |  │   └─────── 
+                     │←                     ←g
+                     │───────         ------- 
+                    e│→                     ←h
+                     │-------         ─────── 
+                    f│→                     → 
+                     └─────┐   │  | ┌──────── 
+                           │ ↓ │ ↑|↑│         
+                           └───┼─┬─┬┘         
+                                 c d          """;
 
     public void draw(int step, LightsConfiguration lightsConfiguration, int northRight, int northLeft, int southRight, int southLeft,
                       int westRight, int westLeft, int eastRight, int eastLeft){
