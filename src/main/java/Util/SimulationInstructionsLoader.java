@@ -7,20 +7,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class SimulationInstructionsLoader {
     public static List<Command> loadInstructions(String path) {
-        // temporary
-        InputStream instructionsJSON = SimulationInstructionsLoader.class.getClassLoader().getResourceAsStream("instructions.json");
-
-        if (instructionsJSON == null) {
-            throw new RuntimeException("Could not find instructions.json");
+        File instructionsJSON = new File(path);
+        if (!instructionsJSON.exists()) {
+            throw new RuntimeException("Could not find instructions file");
         }
-        //COMMENTS!!11
+
         try {
+            // Using ObjectMapper from Jackson library to read and write to JSONs
             ObjectMapper mapper = new ObjectMapper();
+            // My enums are in caps and in input file are not, so mapper has
+            // to accept case-insensitive enums
             mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
 
             JsonNode node = mapper.readTree(instructionsJSON);
@@ -32,6 +32,7 @@ public class SimulationInstructionsLoader {
 
 
         } catch (IOException | IllegalArgumentException e) {
+            // Can't salvage anything when there is an exception here
             throw new RuntimeException(e);
         }
     }
