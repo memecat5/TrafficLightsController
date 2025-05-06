@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) {
         // Check correct number of arguments
         if (args.length != 2) {
-            throw new IllegalArgumentException("Wrong number of arguments");
+            System.out.println("Wrong number of arguments");
+            System.exit(1);
         }
         // Read arguments from input file
         List<Command> commandList = loadInstructions(args[0]);
